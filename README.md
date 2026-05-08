@@ -96,7 +96,7 @@ Visit [http://localhost:5173](http://localhost:5173). You'll be redirected to **
 4. In **Environment Variables**, add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 5. Click **Deploy**. You'll get a live URL — use it on your resume.
 
-> Because the app uses client-side React Router, no special rewrites config is needed for Vite + Vercel — the default `vercel.json`-less setup works.
+> Because the app uses client-side React Router, the included [`vercel.json`](./vercel.json) rewrites all paths to `index.html` so direct visits to `/login`, `/inventory`, etc. don't 404 on Vercel.
 
 ---
 
