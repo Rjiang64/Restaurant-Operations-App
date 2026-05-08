@@ -71,7 +71,7 @@ Each table has `id` (uuid), `created_at`, a `user_id` referencing `auth.users`, 
 
 ## 4. Environment variables
 
-Create a `.env` file in the project root (use `.env.example` as a template):
+Create a `.env` file in the project root with the following keys (the file is gitignored — it never gets committed):
 
 ```
 VITE_SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co

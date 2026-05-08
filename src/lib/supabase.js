@@ -6,7 +6,7 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 if (!supabaseUrl || !supabaseAnonKey) {
   // eslint-disable-next-line no-console
   console.warn(
-    'Missing Supabase env vars. Create a .env file based on .env.example and restart `npm run dev`.'
+    'Missing Supabase env vars. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to a .env file, then restart `npm run dev`.'
   )
 }
 
