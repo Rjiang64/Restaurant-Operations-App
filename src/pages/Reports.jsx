@@ -18,7 +18,7 @@ import { supabase } from '../lib/supabase'
 import { formatCurrency } from '../lib/format'
 import PageHeader from '../components/PageHeader.jsx'
 
-const PIE_COLORS = ['#2563eb', '#16a34a', '#f59e0b', '#dc2626', '#7c3aed', '#0891b2']
+const PIE_COLORS = ['#274c77', '#6096ba', '#a3cef1', '#8b8c89']
 
 export default function Reports() {
   const [loading, setLoading] = useState(true)
@@ -134,7 +134,7 @@ export default function Reports() {
                   <Line
                     type="monotone"
                     dataKey="total"
-                    stroke="#2563eb"
+                    stroke="#274c77"
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5 }}
@@ -192,7 +192,7 @@ export default function Reports() {
                   <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="count" name="Shifts" fill="#16a34a" />
+                  <Bar dataKey="count" name="Shifts" fill="#6096ba" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
