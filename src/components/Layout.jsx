@@ -3,12 +3,12 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 const navItems = [
-  { to: '/', label: 'Dashboard', icon: 'D' },
+  { to: '/dashboard', label: 'Dashboard', icon: 'D' },
   { to: '/inventory', label: 'Inventory', icon: 'I' },
-  { to: '/sales', label: 'Sales', icon: 'S' },
-  { to: '/shifts', label: 'Shifts', icon: 'H' },
-  { to: '/tasks', label: 'Tasks', icon: 'T' },
-  { to: '/reports', label: 'Reports', icon: 'R' }
+  { to: '/sales',     label: 'Sales',     icon: 'S' },
+  { to: '/shifts',    label: 'Shifts',    icon: 'H' },
+  { to: '/tasks',     label: 'Tasks',     icon: 'T' },
+  { to: '/reports',   label: 'Reports',   icon: 'R' }
 ]
 
 export default function Layout() {
@@ -18,17 +18,17 @@ export default function Layout() {
 
   async function handleLogout() {
     await signOut()
-    navigate('/login', { replace: true })
+    navigate('/', { replace: true })
   }
 
   return (
     <div className="layout">
       <aside className={`sidebar ${mobileOpen ? 'sidebar--open' : ''}`}>
         <div className="sidebar__brand">
-          <div className="brand-mark">RO</div>
+          <div className="brand-mark">KO</div>
           <div>
-            <div className="brand-title">Restaurant Ops</div>
-            <div className="brand-sub">Manager Console</div>
+            <div className="brand-title">KitchenOps</div>
+            <div className="brand-sub">Operations console</div>
           </div>
         </div>
         <nav className="sidebar__nav">
@@ -36,7 +36,6 @@ export default function Layout() {
             <NavLink
               key={item.to}
               to={item.to}
-              end={item.to === '/'}
               className={({ isActive }) => `nav-link ${isActive ? 'nav-link--active' : ''}`}
               onClick={() => setMobileOpen(false)}
             >
@@ -67,7 +66,7 @@ export default function Layout() {
           >
             ☰
           </button>
-          <div className="topbar__title">Restaurant Operations</div>
+          <div className="topbar__title">KitchenOps</div>
           <div className="topbar__spacer" />
         </header>
 

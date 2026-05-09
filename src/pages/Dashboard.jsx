@@ -85,7 +85,7 @@ export default function Dashboard() {
     <div className="page">
       <PageHeader
         title="Dashboard"
-        subtitle="A snapshot of today's restaurant operations"
+        subtitle="A snapshot of today's restaurant operations."
       />
 
       {err && <div className="alert alert--error">{err}</div>}

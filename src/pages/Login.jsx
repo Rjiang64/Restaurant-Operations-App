@@ -6,7 +6,7 @@ export default function Login() {
   const { user, loading, signIn, signUp } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+  const from = location.state?.from?.pathname || '/dashboard'
 
   const [mode, setMode] = useState('signin')
   const [email, setEmail] = useState('')
@@ -53,10 +53,10 @@ export default function Login() {
     <div className="auth-shell">
       <div className="auth-card">
         <div className="auth-brand">
-          <div className="brand-mark brand-mark--lg">RO</div>
+          <div className="brand-mark brand-mark--lg">KO</div>
           <div>
-            <div className="auth-title">Restaurant Ops</div>
-            <div className="auth-sub">Manager Console</div>
+            <div className="auth-title">KitchenOps</div>
+            <div className="auth-sub">Restaurant operations, simplified.</div>
           </div>
         </div>
 
@@ -111,7 +111,7 @@ export default function Login() {
         </form>
 
         <p className="auth-foot">
-          Internal demo app. Use a test email and password (min 6 chars).
+          Internal demo app. Use any email and a password of 6+ characters.
         </p>
       </div>
     </div>

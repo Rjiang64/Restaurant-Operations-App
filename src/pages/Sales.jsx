@@ -156,8 +156,9 @@ export default function Sales() {
           <p className="muted">Loading…</p>
         ) : filtered.length === 0 ? (
           <EmptyState
+            icon="$"
             title="No sales records"
-            description="Add your first daily sales record."
+            description="Add your first daily sales record split by lunch, dinner, takeout, and delivery."
             action={
               <button className="btn btn--primary" onClick={openCreate}>
                 + New Record

@@ -133,8 +133,9 @@ export default function Shifts() {
           <p className="muted">Loading…</p>
         ) : filtered.length === 0 ? (
           <EmptyState
-            title="No shifts"
-            description="Schedule your first employee shift."
+            icon="H"
+            title="No shifts scheduled"
+            description="Schedule your first employee shift to start planning coverage."
             action={
               <button className="btn btn--primary" onClick={openCreate}>
                 + New Shift

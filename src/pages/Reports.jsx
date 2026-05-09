@@ -18,7 +18,7 @@ import { supabase } from '../lib/supabase'
 import { formatCurrency } from '../lib/format'
 import PageHeader from '../components/PageHeader.jsx'
 
-const PIE_COLORS = ['#274c77', '#6096ba', '#a3cef1', '#8b8c89']
+const PIE_COLORS = ['#8B1E1E', '#D97706', '#2F855A', '#B7791F']
 
 export default function Reports() {
   const [loading, setLoading] = useState(true)
@@ -127,16 +127,16 @@ export default function Reports() {
             <div style={{ width: '100%', height: 280 }}>
               <ResponsiveContainer>
                 <LineChart data={trendData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E0D8" />
                   <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip formatter={(v) => formatCurrency(v)} />
                   <Line
                     type="monotone"
                     dataKey="total"
-                    stroke="#274c77"
+                    stroke="#8B1E1E"
                     strokeWidth={2}
-                    dot={{ r: 3 }}
+                    dot={{ r: 3, fill: '#8B1E1E' }}
                     activeDot={{ r: 5 }}
                   />
                 </LineChart>
@@ -187,12 +187,12 @@ export default function Reports() {
             <div style={{ width: '100%', height: 280 }}>
               <ResponsiveContainer>
                 <BarChart data={shiftsByRole}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E0D8" />
                   <XAxis dataKey="role" tick={{ fontSize: 12 }} />
                   <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="count" name="Shifts" fill="#6096ba" />
+                  <Bar dataKey="count" name="Shifts" fill="#D97706" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

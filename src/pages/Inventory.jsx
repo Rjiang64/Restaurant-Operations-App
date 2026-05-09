@@ -137,8 +137,9 @@ export default function Inventory() {
           <p className="muted">Loading…</p>
         ) : filtered.length === 0 ? (
           <EmptyState
+            icon="I"
             title="No inventory yet"
-            description="Add your first item to start tracking stock."
+            description="Add your first item to start tracking stock levels, reorder points, and suppliers."
             action={
               <button className="btn btn--primary" onClick={openCreate}>
                 + New Item

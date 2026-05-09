@@ -1,4 +1,6 @@
-# Restaurant Operations Management
+# KitchenOps
+
+> **Restaurant operations, simplified.**
 
 A full-stack internal tool for restaurant managers to track **inventory, daily sales, staff shifts, and operational tasks** — with a clean dashboard, simple reports, and Supabase-backed authentication.
 
@@ -10,6 +12,7 @@ Built as a portfolio project that mirrors a realistic small-business workflow. T
 
 ## Features
 
+- **Public landing page** — branded marketing front (`/`) with hero, feature grid, and CTAs
 - **Authentication** — Supabase email/password sign-in & sign-up, protected routes, logout
 - **Dashboard** — Today's sales, total inventory, low-stock count, upcoming shifts, open tasks, recent sales table, today's shifts
 - **Inventory** — Full CRUD, search, low-stock badge when `quantity ≤ reorder_level`
@@ -29,7 +32,7 @@ src/
 ├── components/         Layout, ProtectedRoute, Modal, SummaryCard, etc.
 ├── context/            AuthContext (Supabase session)
 ├── lib/                supabase.js client, format.js helpers
-├── pages/              Login, Dashboard, Inventory, Sales, Shifts, Tasks, Reports
+├── pages/              Landing, Login, Dashboard, Inventory, Sales, Shifts, Tasks, Reports
 ├── App.jsx             Routes
 ├── main.jsx            Entry
 └── index.css           Stylesheet
@@ -137,7 +140,7 @@ These are realistic next steps if you wanted to extend the project:
 
 Adapt these to match your voice — they highlight the parts hiring managers care about for entry-level SWE / Full-Stack / App Dev / Technical Analyst / Data Analyst roles:
 
-- Built a full-stack restaurant operations management app (React, JavaScript, Supabase/Postgres) used to track inventory, daily sales, staff shifts, and tasks across a single manager workflow.
+- Built **KitchenOps**, a full-stack restaurant operations management app (React, JavaScript, Supabase/Postgres) used to track inventory, daily sales, staff shifts, and tasks across a single manager workflow.
 - Designed a normalized Postgres schema with four entities and **row-level security policies** so every authenticated user only reads and writes their own data.
 - Implemented end-to-end **email/password authentication** with React Router protected routes, a session context, and graceful login/logout flows.
 - Built **CRUD interfaces** with form validation, search/filter, and modal-based editing for inventory, sales, shifts, and tasks (~25 endpoints' worth of behavior backed by Supabase auto-generated APIs).

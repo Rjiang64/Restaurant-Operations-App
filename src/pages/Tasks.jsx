@@ -154,8 +154,9 @@ export default function Tasks() {
           <p className="muted">Loading…</p>
         ) : filtered.length === 0 ? (
           <EmptyState
+            icon="T"
             title="No tasks"
-            description="Create a task to get started."
+            description="Create a manager task with priority and a due date to get started."
             action={
               <button className="btn btn--primary" onClick={openCreate}>
                 + New Task
