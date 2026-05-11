@@ -147,36 +147,38 @@ export default function Shifts() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Employee</th>
-                  <th>Date</th>
-                  <th>Start</th>
-                  <th>End</th>
-                  <th>Role</th>
+                  <th className="nowrap">Employee</th>
+                  <th className="nowrap">Date</th>
+                  <th className="nowrap">Start</th>
+                  <th className="nowrap">End</th>
+                  <th className="nowrap">Role</th>
                   <th>Notes</th>
-                  <th></th>
+                  <th className="actions"></th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map((s) => (
                   <tr key={s.id}>
-                    <td>{s.employee_name}</td>
-                    <td>{formatDate(s.shift_date)}</td>
-                    <td>{s.start_time}</td>
-                    <td>{s.end_time}</td>
-                    <td>
+                    <td className="nowrap">{s.employee_name}</td>
+                    <td className="nowrap">{formatDate(s.shift_date)}</td>
+                    <td className="nowrap">{s.start_time}</td>
+                    <td className="nowrap">{s.end_time}</td>
+                    <td className="nowrap">
                       <span className="badge badge--neutral">{s.role}</span>
                     </td>
                     <td className="muted">{s.notes}</td>
-                    <td className="row-actions">
-                      <button className="btn btn--ghost btn--sm" onClick={() => openEdit(s)}>
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn--danger btn--sm"
-                        onClick={() => onDelete(s.id)}
-                      >
-                        Delete
-                      </button>
+                    <td className="actions">
+                      <div className="row-actions">
+                        <button className="btn btn--ghost btn--sm" onClick={() => openEdit(s)}>
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn--danger btn--sm"
+                          onClick={() => onDelete(s.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

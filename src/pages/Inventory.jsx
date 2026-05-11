@@ -151,15 +151,15 @@ export default function Inventory() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>Category</th>
-                  <th>Quantity</th>
-                  <th>Unit</th>
-                  <th>Reorder ≤</th>
-                  <th>Cost / Unit</th>
-                  <th>Supplier</th>
-                  <th>Status</th>
-                  <th></th>
+                  <th className="nowrap">Item</th>
+                  <th className="nowrap">Category</th>
+                  <th className="num">Quantity</th>
+                  <th className="nowrap">Unit</th>
+                  <th className="num">Reorder ≤</th>
+                  <th className="num">Cost / Unit</th>
+                  <th className="nowrap">Supplier</th>
+                  <th className="nowrap">Status</th>
+                  <th className="actions"></th>
                 </tr>
               </thead>
               <tbody>
@@ -167,30 +167,32 @@ export default function Inventory() {
                   const low = Number(i.quantity) <= Number(i.reorder_level)
                   return (
                     <tr key={i.id}>
-                      <td>{i.item_name}</td>
-                      <td>{i.category}</td>
-                      <td>{i.quantity}</td>
-                      <td>{i.unit}</td>
-                      <td>{i.reorder_level}</td>
-                      <td>{formatCurrency(i.cost_per_unit)}</td>
-                      <td>{i.supplier}</td>
-                      <td>
+                      <td className="nowrap">{i.item_name}</td>
+                      <td className="nowrap">{i.category}</td>
+                      <td className="num">{i.quantity}</td>
+                      <td className="nowrap">{i.unit}</td>
+                      <td className="num">{i.reorder_level}</td>
+                      <td className="num">{formatCurrency(i.cost_per_unit)}</td>
+                      <td className="nowrap">{i.supplier}</td>
+                      <td className="nowrap">
                         {low ? (
                           <span className="badge badge--warn">Low stock</span>
                         ) : (
                           <span className="badge badge--ok">OK</span>
                         )}
                       </td>
-                      <td className="row-actions">
-                        <button className="btn btn--ghost btn--sm" onClick={() => openEdit(i)}>
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn--danger btn--sm"
-                          onClick={() => onDelete(i.id)}
-                        >
-                          Delete
-                        </button>
+                      <td className="actions">
+                        <div className="row-actions">
+                          <button className="btn btn--ghost btn--sm" onClick={() => openEdit(i)}>
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn--danger btn--sm"
+                            onClick={() => onDelete(i.id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   )

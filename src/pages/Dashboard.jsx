@@ -130,30 +130,32 @@ export default function Dashboard() {
           {recentSales.length === 0 ? (
             <p className="muted">No sales recorded yet.</p>
           ) : (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Lunch</th>
-                  <th>Dinner</th>
-                  <th>Takeout</th>
-                  <th>Delivery</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentSales.map((r) => (
-                  <tr key={r.id}>
-                    <td>{formatDate(r.sale_date)}</td>
-                    <td>{formatCurrency(r.lunch_sales)}</td>
-                    <td>{formatCurrency(r.dinner_sales)}</td>
-                    <td>{formatCurrency(r.takeout_sales)}</td>
-                    <td>{formatCurrency(r.delivery_sales)}</td>
-                    <td><strong>{formatCurrency(r.total_sales)}</strong></td>
+            <div className="table-wrap">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="nowrap">Date</th>
+                    <th className="num">Lunch</th>
+                    <th className="num">Dinner</th>
+                    <th className="num">Takeout</th>
+                    <th className="num">Delivery</th>
+                    <th className="num">Total</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {recentSales.map((r) => (
+                    <tr key={r.id}>
+                      <td className="nowrap">{formatDate(r.sale_date)}</td>
+                      <td className="num">{formatCurrency(r.lunch_sales)}</td>
+                      <td className="num">{formatCurrency(r.dinner_sales)}</td>
+                      <td className="num">{formatCurrency(r.takeout_sales)}</td>
+                      <td className="num">{formatCurrency(r.delivery_sales)}</td>
+                      <td className="num"><strong>{formatCurrency(r.total_sales)}</strong></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </section>
 
@@ -187,28 +189,30 @@ export default function Dashboard() {
         {todayShifts.length === 0 ? (
           <p className="muted">No shifts scheduled for today.</p>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Employee</th>
-                <th>Role</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {todayShifts.map((s) => (
-                <tr key={s.id}>
-                  <td>{s.employee_name}</td>
-                  <td>{s.role}</td>
-                  <td>{s.start_time}</td>
-                  <td>{s.end_time}</td>
-                  <td className="muted">{s.notes}</td>
+          <div className="table-wrap">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th className="nowrap">Employee</th>
+                  <th className="nowrap">Role</th>
+                  <th className="nowrap">Start</th>
+                  <th className="nowrap">End</th>
+                  <th>Notes</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {todayShifts.map((s) => (
+                  <tr key={s.id}>
+                    <td className="nowrap">{s.employee_name}</td>
+                    <td className="nowrap">{s.role}</td>
+                    <td className="nowrap">{s.start_time}</td>
+                    <td className="nowrap">{s.end_time}</td>
+                    <td className="muted">{s.notes}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
     </div>

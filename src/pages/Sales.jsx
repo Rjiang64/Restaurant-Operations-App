@@ -170,38 +170,40 @@ export default function Sales() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Lunch</th>
-                  <th>Dinner</th>
-                  <th>Takeout</th>
-                  <th>Delivery</th>
-                  <th>Total</th>
+                  <th className="nowrap">Date</th>
+                  <th className="num">Lunch</th>
+                  <th className="num">Dinner</th>
+                  <th className="num">Takeout</th>
+                  <th className="num">Delivery</th>
+                  <th className="num">Total</th>
                   <th>Notes</th>
-                  <th></th>
+                  <th className="actions"></th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map((r) => (
                   <tr key={r.id}>
-                    <td>{formatDate(r.sale_date)}</td>
-                    <td>{formatCurrency(r.lunch_sales)}</td>
-                    <td>{formatCurrency(r.dinner_sales)}</td>
-                    <td>{formatCurrency(r.takeout_sales)}</td>
-                    <td>{formatCurrency(r.delivery_sales)}</td>
-                    <td>
+                    <td className="nowrap">{formatDate(r.sale_date)}</td>
+                    <td className="num">{formatCurrency(r.lunch_sales)}</td>
+                    <td className="num">{formatCurrency(r.dinner_sales)}</td>
+                    <td className="num">{formatCurrency(r.takeout_sales)}</td>
+                    <td className="num">{formatCurrency(r.delivery_sales)}</td>
+                    <td className="num">
                       <strong>{formatCurrency(r.total_sales)}</strong>
                     </td>
                     <td className="muted">{r.notes}</td>
-                    <td className="row-actions">
-                      <button className="btn btn--ghost btn--sm" onClick={() => openEdit(r)}>
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn--danger btn--sm"
-                        onClick={() => onDelete(r.id)}
-                      >
-                        Delete
-                      </button>
+                    <td className="actions">
+                      <div className="row-actions">
+                        <button className="btn btn--ghost btn--sm" onClick={() => openEdit(r)}>
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn--danger btn--sm"
+                          onClick={() => onDelete(r.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

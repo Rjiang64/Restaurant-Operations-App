@@ -208,28 +208,30 @@ export default function Reports() {
           ) : lowStock.length === 0 ? (
             <p className="muted">All items above reorder level.</p>
           ) : (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Qty</th>
-                  <th>Reorder ≤</th>
-                  <th>Supplier</th>
-                </tr>
-              </thead>
-              <tbody>
-                {lowStock.map((i) => (
-                  <tr key={i.id}>
-                    <td>{i.item_name}</td>
-                    <td>
-                      {i.quantity} {i.unit}
-                    </td>
-                    <td>{i.reorder_level}</td>
-                    <td>{i.supplier}</td>
+            <div className="table-wrap">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th className="num">Qty</th>
+                    <th className="num">Reorder ≤</th>
+                    <th className="nowrap">Supplier</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {lowStock.map((i) => (
+                    <tr key={i.id}>
+                      <td className="nowrap">{i.item_name}</td>
+                      <td className="num">
+                        {i.quantity} {i.unit}
+                      </td>
+                      <td className="num">{i.reorder_level}</td>
+                      <td className="nowrap">{i.supplier}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </section>
       </div>

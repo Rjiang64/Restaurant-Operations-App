@@ -369,7 +369,18 @@ img, svg { display: block; max-width: 100%; }
 /* =============================================================
    Tables
 ============================================================= */
-.table-wrap { overflow-x: auto; border-radius: var(--radius); }
+.table-wrap {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.table-wrap .table { margin: 0; }
+
 .table {
   width: 100%;
   border-collapse: separate;
@@ -394,6 +405,24 @@ img, svg { display: block; max-width: 100%; }
 .table tbody tr:last-child td { border-bottom: none; }
 .table tbody tr:hover td { background: var(--surface-alt); }
 .table td { font-variant-numeric: tabular-nums; }
+
+/* Cell modifiers */
+.table th.nowrap,
+.table td.nowrap { white-space: nowrap; }
+
+.table th.num,
+.table td.num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th.actions,
+.table td.actions {
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
+}
 
 /* =============================================================
    Buttons
