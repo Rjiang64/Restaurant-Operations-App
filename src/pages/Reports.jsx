@@ -187,41 +187,6 @@ export default function Reports() {
   const insights = useMemo(() => {
     const items = []
 
-    const positive = breakdown.filter((b) => b.value > 0)
-    if (positive.length) {
-      const top = positive.reduce((a, b) => (a.value > b.value ? a : b))
-      const totalChannels = positive.reduce((s, b) => s + b.value, 0)
-      const share = (top.value / totalChannels) * 100
-      items.push({
-        tone: 'primary',
-        icon: '$',
-        text: `${top.name} is your highest-revenue service period at ${share.toFixed(0)}% of sales for ${range.label}.`
-      })
-    }
-
-    if (lowStock.length > 0) {
-      items.push({
-        tone: 'warn',
-        icon: '!',
-        text: `${lowStock.length} inventory item${lowStock.length === 1 ? '' : 's'} at or below reorder threshold — needs purchasing attention.`
-      })
-    } else if (inventory.length > 0) {
-      items.push({
-        tone: 'success',
-        icon: '✓',
-        text: 'All inventory items are above reorder threshold.'
-      })
-    }
-
-    if (laborByRole.length > 0) {
-      const top = laborByRole[0]
-      items.push({
-        tone: 'accent',
-        icon: 'H',
-        text: `${top.role} has the most scheduled hours this period (${formatHours(top.hours * 60)} across ${shiftsByRole.find((r) => r.role === top.role)?.count ?? 0} shifts).`
-      })
-    }
-
     if (totalSales > 0 && labor.totalCost > 0) {
       items.push({
         tone: laborPctOfSales > 0.35 ? 'warn' : 'success',
@@ -240,18 +205,12 @@ export default function Reports() {
 
     return items
   }, [
-    breakdown,
-    lowStock,
-    inventory.length,
-    laborByRole,
-    shiftsByRole,
     totalSales,
     labor.totalCost,
     laborPctOfSales,
     laborHours,
     salesPerLaborHour,
-    labor.totalMins,
-    range.label
+    labor.totalMins
   ])
 
   const hasAnyData =
@@ -353,7 +312,9 @@ export default function Reports() {
           <p className="muted">Loading…</p>
         ) : insights.length === 0 ? (
           <p className="muted">
-            No data yet for {range.label}. Switch filter or add sales / shifts to see insights.
+            No labor insights for {range.label}. Both <strong>sales records</strong> and{' '}
+            <strong>shifts with employee hourly rates</strong> are needed to compute labor cost %
+            and sales per labor hour.
           </p>
         ) : (
           <ul className="insights-list">
