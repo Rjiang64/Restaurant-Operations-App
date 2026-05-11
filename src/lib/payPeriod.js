@@ -60,3 +60,53 @@ export function isInPeriod(isoDate, period) {
   if (!isoDate) return false
   return isoDate >= toISODate(period.start) && isoDate <= toISODate(period.end)
 }
+
+// ----- Report-style date ranges (local, not UTC) -----
+function toLocalISO(d) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+// Returns { startISO, endISO, label }. `startISO === null` means no lower bound (all-time).
+export function getReportRange(filter, now = new Date()) {
+  const t = new Date(now)
+  if (filter === 'all-time') {
+    return { startISO: null, endISO: null, label: 'All time' }
+  }
+  if (filter === 'current-pp') {
+    const p = getPayPeriod(t)
+    return {
+      startISO: toISODate(p.start),
+      endISO: toISODate(p.end),
+      label: formatPeriodLabel(p)
+    }
+  }
+  if (filter === 'this-week' || filter === 'last-week') {
+    const dow = t.getDay() // 0=Sun..6=Sat
+    const sinceMonday = (dow + 6) % 7
+    const monday = new Date(t.getFullYear(), t.getMonth(), t.getDate() - sinceMonday)
+    if (filter === 'last-week') monday.setDate(monday.getDate() - 7)
+    const sunday = new Date(monday)
+    sunday.setDate(monday.getDate() + 6)
+    const opts = { month: 'short', day: 'numeric', year: 'numeric' }
+    const label = `${monday.toLocaleDateString('en-US', opts)} – ${sunday.toLocaleDateString('en-US', opts)}`
+    return { startISO: toLocalISO(monday), endISO: toLocalISO(sunday), label }
+  }
+  if (filter === 'this-month') {
+    const first = new Date(t.getFullYear(), t.getMonth(), 1)
+    const last = new Date(t.getFullYear(), t.getMonth() + 1, 0)
+    const label = first.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    return { startISO: toLocalISO(first), endISO: toLocalISO(last), label }
+  }
+  return { startISO: null, endISO: null, label: 'All time' }
+}
+
+export function inRange(isoDate, range) {
+  if (!isoDate) return false
+  if (!range.startISO && !range.endISO) return true
+  if (range.startISO && isoDate < range.startISO) return false
+  if (range.endISO && isoDate > range.endISO) return false
+  return true
+}

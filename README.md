@@ -20,7 +20,7 @@ Built as a portfolio project that mirrors a realistic small-business workflow. T
 - **Sales** — Full CRUD, month filter, monthly total, automatic `total_sales` calculation
 - **Shifts** — Full CRUD, date filter, role chips
 - **Tasks** — Full CRUD, complete/incomplete toggle, priority, category, open/done filter
-- **Reports** — Sales trend (line chart), sales breakdown by service period (pie), shifts by role (bar), low-stock list
+- **Reports** — Pay-period-aware analytics with a filter bar (This Week, Last Week, This Month, current 2-week Pay Period as default, All Time). Surfaces **labor cost %, labor hours, sales per labor hour, labor hours by role, an employee hours leaderboard, sales trend, sales breakdown by service period, shifts by role, low-stock list**, and an auto-generated **Manager Insights** panel with the top revenue channel, busiest role, labor cost ratio, and reorder alerts.
 - **Row-Level Security** — Each user only sees their own records
 - **Responsive UI** — Works on desktop, tablet, and mobile
 
@@ -154,7 +154,8 @@ Adapt these to match your voice — they highlight the parts hiring managers car
 - Implemented a **biweekly timecard system** with a Monday-anchored 2-week pay period, prev/next navigation, per-employee hours and estimated-pay calculations, drill-in detail modals, and one-click client-side **CSV export** for payroll handoff.
 - Implemented end-to-end **email/password authentication** with React Router protected routes, a session context, and graceful login/logout flows.
 - Built **CRUD interfaces** with form validation, search/filter, and modal-based editing for inventory, sales, shifts, employees, and tasks — all backed by Supabase auto-generated REST APIs.
-- Designed and shipped a **reports dashboard** with sales trend, sales-by-service-period, shifts-by-role, and low-stock visualizations using Recharts.
+- Designed and shipped a **pay-period aware reports dashboard** computing labor cost, labor cost as % of sales, sales per labor hour, labor hours by role, and an employee hours leaderboard — alongside sales trend, sales-by-service-period, and low-stock visualizations (Recharts).
+- Authored an **auto-generated Manager Insights panel** that surfaces business-language summaries (top revenue channel, busiest role, labor-cost ratio, low-stock alerts) from the same client-side aggregations.
 - Translated **prior restaurant operations experience** into the data model (lunch/dinner/takeout/delivery split, reorder thresholds, biweekly pay periods, employee roster with hourly rates) — bridging product domain knowledge and engineering.
 - Deployed to Vercel with environment-driven Supabase configuration; no servers to manage.
 
@@ -170,6 +171,6 @@ When asked "tell me about a project," walk through these in order — they map c
 4. **Security** — RLS policies are the actual security boundary, not the front-end. Even if someone bypassed the React app, they could only see their own data. Show a policy in `schema.sql`.
 5. **Tradeoffs** — Kept it intentionally beginner-friendly: no TypeScript, no Docker, no complicated role permissions, no payment system. Explain what I'd add next (see Future Improvements) and why I didn't add it now (scope discipline).
 6. **What I'd do at a real job** — Add tests, CI, error monitoring (Sentry), proper analytics, and a real design system. Talk about how this MVP is the seed of a real product, not the finished product.
-7. **Data analyst angle** — The Reports page is where data work lives. I aggregate by service period, compute averages, surface low-stock anomalies. With more data this becomes COGS reports, labor-as-a-percent-of-sales, week-over-week trend, etc.
+7. **Data analyst angle** — The Reports page is where the data work lives. I filter every record by the selected period (this week / last week / this month / current pay period / all time), then aggregate three ways: sales by channel for revenue mix, labor hours and cost per role for staffing distribution, and per-employee totals for the leaderboard. From those primitives I derive the headline restaurant metrics — **labor cost as a percent of sales** (the canonical labor-efficiency KPI, typically 25–35%) and **sales per labor hour** (revenue productivity). The auto-generated Insights panel turns those numbers into plain-English bullets the manager actually wants to read. All client-side aggregation over the same Postgres tables — no warehouse, no ETL.
 
 8. **Timecard math** — Walk through how the biweekly pay period is anchored to a fixed Monday (`2024-01-01`) and any date maps to exactly one 14-day period via integer division on the day-delta. Each shift's hours = `end_time - start_time - unpaid_break_minutes`, with overnight shifts handled by adding 24h when `end <= start`. Total period hours = sum of shift hours filtered by `employee_id` and `shift_date BETWEEN period_start AND period_end`. Estimated pay = hours × `employees.hourly_rate`. The CSV export is generated entirely client-side via `Blob` + a temporary download link — no server roundtrip.
