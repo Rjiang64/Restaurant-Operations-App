@@ -217,6 +217,21 @@ img, svg { display: block; max-width: 100%; }
   text-overflow: ellipsis;
 }
 
+/* Logout button — scoped override so the ghost variant reads on dark sidebar */
+.sidebar__footer .btn--ghost {
+  color: #FFFFFF;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.sidebar__footer .btn--ghost:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+}
+.sidebar__footer .btn--ghost:focus-visible {
+  box-shadow: 0 0 0 3px rgba(248, 231, 231, 0.25);
+}
+
 /* Main */
 .main {
   display: flex;
