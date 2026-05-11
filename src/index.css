@@ -719,12 +719,15 @@ img, svg { display: block; max-width: 100%; }
 
 .modal {
   width: 100%;
-  max-width: 620px;
+  max-width: 760px;
+  max-height: calc(100vh - 32px);
   background: var(--surface);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
   animation: pop 0.16s ease-out;
+  display: flex;
+  flex-direction: column;
 }
 @keyframes pop {
   from { transform: translateY(10px); opacity: 0; }
@@ -738,7 +741,11 @@ img, svg { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--border);
 }
 .modal__title { margin: 0; font-size: 16px; font-weight: 700; }
-.modal__body  { padding: 20px; }
+.modal__body {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(100vh - 140px);
+}
 .modal__footer { padding: 14px 18px; border-top: 1px solid var(--border); }
 
 /* =============================================================
@@ -955,6 +962,157 @@ img, svg { display: block; max-width: 100%; }
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* =============================================================
+   Timecards (Shifts page)
+============================================================= */
+.period-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.period-bar__spacer { flex: 1; }
+
+.period-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.period-nav__label {
+  text-align: center;
+  min-width: 220px;
+}
+.period-nav__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 15px;
+}
+.period-nav__sub {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+.timecard-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.timecard-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+.timecard-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.timecard-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.timecard-card__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.timecard-card__title { min-width: 0; flex: 1; }
+.timecard-card__name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.timecard-card__meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.timecard-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: var(--surface-alt);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+.timecard-stat { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.timecard-stat__label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.timecard-stat__value {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Detail modal */
+.timecard-detail__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.timecard-detail__name {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.timecard-detail__sub {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+/* Detail modal table tfoot */
+.modal .table tfoot td {
+  background: var(--surface-alt);
+  font-weight: 600;
+}
+
+/* Employee manager modal */
+.emp-manager { display: flex; flex-direction: column; gap: 18px; }
+.emp-manager__form {
+  background: var(--surface-alt);
+  border-radius: var(--radius);
+  padding: 14px;
 }
 
 /* =============================================================

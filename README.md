@@ -14,7 +14,8 @@ Built as a portfolio project that mirrors a realistic small-business workflow. T
 
 - **Public landing page** — branded marketing front (`/`) with hero, feature grid, and CTAs
 - **Authentication** — Supabase email/password sign-in & sign-up, protected routes, logout
-- **Dashboard** — Today's sales, total inventory, low-stock count, upcoming shifts, open tasks, recent sales table, today's shifts
+- **Dashboard** — Today's sales, total inventory, low-stock count, upcoming shifts, open tasks, recent sales table, today's shifts (joined to the employee roster)
+- **Biweekly Timecards** — Monday-anchored 2-week pay periods with prev/next navigation, per-employee hours/shifts/estimated-pay cards, drill-in detail modal, and one-click CSV export. Employees are managed in a dedicated roster modal with name, title, contact info, hourly rate, and active/inactive status.
 - **Inventory** — Full CRUD, search, low-stock badge when `quantity ≤ reorder_level`
 - **Sales** — Full CRUD, month filter, monthly total, automatic `total_sales` calculation
 - **Shifts** — Full CRUD, date filter, role chips
@@ -57,14 +58,22 @@ npm install
 
 ## 3. Run the SQL
 
-Open the **SQL Editor** in Supabase, paste the contents of [`supabase/schema.sql`](./supabase/schema.sql), and run it. This creates four tables:
+Open the **SQL Editor** in Supabase, paste the contents of [`supabase/schema.sql`](./supabase/schema.sql), and run it. This creates five tables:
 
 - `inventory_items`
 - `sales_records`
-- `shifts`
+- `employees` *(roster used by the Shifts timecard view)*
+- `shifts` *(now has `employee_id` FK → `employees.id` and `unpaid_break_minutes`)*
 - `tasks`
 
-Each table has `id` (uuid), `created_at`, a `user_id` referencing `auth.users`, and full **Row-Level Security** policies so users can only see and modify their own rows.
+Each table has `id` (uuid), `created_at`, a `user_id` referencing `auth.users`, and full **Row-Level Security** policies so users can only see and modify their own rows. The schema script is idempotent — safe to re-run on an existing database; it adds the new employees table and shift columns without dropping any data.
+
+### Notes on the timecard model
+
+- Pay periods are **14 days, Monday-start**, anchored to `2024-01-01` (which was a Monday). Any date maps deterministically to one period.
+- **Overnight shifts are supported**: when `end_time <= start_time`, the shift is interpreted as crossing midnight (24h added automatically).
+- **Estimated pay** is `hours × employees.hourly_rate`. Employees without a rate show "—" and are excluded from the payroll summary.
+- **Deactivating** an employee hides them from the timecard grid but preserves all historical shifts. Deleting an employee cascades and removes their shifts.
 
 ### Optional seed data
 
@@ -141,11 +150,12 @@ These are realistic next steps if you wanted to extend the project:
 Adapt these to match your voice — they highlight the parts hiring managers care about for entry-level SWE / Full-Stack / App Dev / Technical Analyst / Data Analyst roles:
 
 - Built **KitchenOps**, a full-stack restaurant operations management app (React, JavaScript, Supabase/Postgres) used to track inventory, daily sales, staff shifts, and tasks across a single manager workflow.
-- Designed a normalized Postgres schema with four entities and **row-level security policies** so every authenticated user only reads and writes their own data.
+- Designed a normalized Postgres schema with **five entities and a relational `employees → shifts` foreign key**, plus **row-level security policies** on every table so each authenticated user only reads and writes their own data.
+- Implemented a **biweekly timecard system** with a Monday-anchored 2-week pay period, prev/next navigation, per-employee hours and estimated-pay calculations, drill-in detail modals, and one-click client-side **CSV export** for payroll handoff.
 - Implemented end-to-end **email/password authentication** with React Router protected routes, a session context, and graceful login/logout flows.
-- Built **CRUD interfaces** with form validation, search/filter, and modal-based editing for inventory, sales, shifts, and tasks (~25 endpoints' worth of behavior backed by Supabase auto-generated APIs).
+- Built **CRUD interfaces** with form validation, search/filter, and modal-based editing for inventory, sales, shifts, employees, and tasks — all backed by Supabase auto-generated REST APIs.
 - Designed and shipped a **reports dashboard** with sales trend, sales-by-service-period, shifts-by-role, and low-stock visualizations using Recharts.
-- Translated **prior restaurant operations experience** into the data model (lunch/dinner/takeout/delivery split, reorder thresholds, role-based shift roster) — bridging product domain knowledge and engineering.
+- Translated **prior restaurant operations experience** into the data model (lunch/dinner/takeout/delivery split, reorder thresholds, biweekly pay periods, employee roster with hourly rates) — bridging product domain knowledge and engineering.
 - Deployed to Vercel with environment-driven Supabase configuration; no servers to manage.
 
 ---
@@ -156,8 +166,10 @@ When asked "tell me about a project," walk through these in order — they map c
 
 1. **Why this project?** "I worked in restaurants before pivoting to engineering, and I noticed managers track sales, inventory, and shifts in a mishmash of spreadsheets, Notes apps, and clipboard sheets. I built a single internal tool that consolidates it."
 2. **Architecture decisions** — Vite + React for fast dev, Supabase as the backend so I could focus on product work instead of writing my own auth + API + Postgres layer. Recharts because the charts are simple and it ships small.
-3. **Data modeling** — Four tables, all keyed by `user_id` to `auth.users`. Walk through one schema (e.g. `sales_records`) and explain why I split lunch/dinner/takeout/delivery into separate columns instead of a generic JSON blob (queryable, easy to chart, matches how managers actually report).
+3. **Data modeling** — Five tables, all keyed by `user_id` to `auth.users`, plus a relational FK from `shifts.employee_id` to `employees.id`. Walk through one schema (e.g. `sales_records`) and explain why I split lunch/dinner/takeout/delivery into separate columns instead of a generic JSON blob (queryable, easy to chart, matches how managers actually report). Then explain why the timecard view requires a separate `employees` table — denormalized employee names on shifts were OK for v1 but broke as soon as I needed roster-level aggregations like "hours per employee per pay period."
 4. **Security** — RLS policies are the actual security boundary, not the front-end. Even if someone bypassed the React app, they could only see their own data. Show a policy in `schema.sql`.
 5. **Tradeoffs** — Kept it intentionally beginner-friendly: no TypeScript, no Docker, no complicated role permissions, no payment system. Explain what I'd add next (see Future Improvements) and why I didn't add it now (scope discipline).
 6. **What I'd do at a real job** — Add tests, CI, error monitoring (Sentry), proper analytics, and a real design system. Talk about how this MVP is the seed of a real product, not the finished product.
 7. **Data analyst angle** — The Reports page is where data work lives. I aggregate by service period, compute averages, surface low-stock anomalies. With more data this becomes COGS reports, labor-as-a-percent-of-sales, week-over-week trend, etc.
+
+8. **Timecard math** — Walk through how the biweekly pay period is anchored to a fixed Monday (`2024-01-01`) and any date maps to exactly one 14-day period via integer division on the day-delta. Each shift's hours = `end_time - start_time - unpaid_break_minutes`, with overnight shifts handled by adding 24h when `end <= start`. Total period hours = sum of shift hours filtered by `employee_id` and `shift_date BETWEEN period_start AND period_end`. Estimated pay = hours × `employees.hourly_rate`. The CSV export is generated entirely client-side via `Blob` + a temporary download link — no server roundtrip.

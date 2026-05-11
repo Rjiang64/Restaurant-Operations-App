@@ -37,7 +37,7 @@ export default function Reports() {
     const [s, i, sh] = await Promise.all([
       supabase.from('sales_records').select('*').order('sale_date', { ascending: true }),
       supabase.from('inventory_items').select('*'),
-      supabase.from('shifts').select('*')
+      supabase.from('shifts').select('*, employee:employees(title)')
     ])
     if (s.error || i.error || sh.error) {
       setErr((s.error || i.error || sh.error).message)
@@ -76,7 +76,7 @@ export default function Reports() {
   const shiftsByRole = useMemo(() => {
     const map = {}
     shifts.forEach((s) => {
-      const key = s.role || 'Unknown'
+      const key = s.role || s.employee?.title || 'Unknown'
       map[key] = (map[key] || 0) + 1
     })
     return Object.entries(map).map(([role, count]) => ({ role, count }))

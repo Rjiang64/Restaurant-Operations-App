@@ -46,7 +46,7 @@ export default function Dashboard() {
         supabase.from('tasks').select('id').eq('completed', false),
         supabase
           .from('shifts')
-          .select('*')
+          .select('*, employee:employees(name, title)')
           .eq('shift_date', today)
           .order('start_time', { ascending: true })
       ])
@@ -203,8 +203,8 @@ export default function Dashboard() {
               <tbody>
                 {todayShifts.map((s) => (
                   <tr key={s.id}>
-                    <td className="nowrap">{s.employee_name}</td>
-                    <td className="nowrap">{s.role}</td>
+                    <td className="nowrap">{s.employee?.name || s.employee_name || '—'}</td>
+                    <td className="nowrap">{s.role || s.employee?.title || ''}</td>
                     <td className="nowrap">{s.start_time}</td>
                     <td className="nowrap">{s.end_time}</td>
                     <td className="muted">{s.notes}</td>
