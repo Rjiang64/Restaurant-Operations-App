@@ -26,7 +26,7 @@ export default function Layout() {
     <div className="layout">
       <aside className={`sidebar ${mobileOpen ? 'sidebar--open' : ''}`}>
         <div className="sidebar__brand">
-          <Logo size={38} />
+          <Logo size={44} />
           <div>
             <div className="brand-title">Kitchen Manager</div>
             <div className="brand-sub">Operations console</div>

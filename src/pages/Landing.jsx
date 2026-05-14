@@ -32,7 +32,7 @@ export default function Landing() {
         <div className="auth-image__overlay" aria-hidden="true" />
         <div className="auth-image__content">
           <div className="auth-image__brand">
-            <Logo size={40} />
+            <Logo size={52} />
             <span className="auth-image__wordmark">Kitchen Manager</span>
           </div>
 
