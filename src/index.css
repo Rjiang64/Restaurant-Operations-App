@@ -749,41 +749,8 @@ img, svg { display: block; max-width: 100%; }
 .modal__footer { padding: 14px 18px; border-top: 1px solid var(--border); }
 
 /* =============================================================
-   Auth
+   Auth — shared form controls used inside .auth-panel
 ============================================================= */
-.auth-shell {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(900px 500px at -10% -20%, rgba(139, 30, 30, 0.10), transparent 60%),
-    radial-gradient(700px 500px at 110% 110%, rgba(217, 119, 6, 0.10), transparent 60%),
-    var(--bg);
-  padding: 24px;
-}
-.auth-card {
-  width: 100%;
-  max-width: 420px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.auth-brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.auth-title {
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: -0.01em;
-}
-.auth-sub { color: var(--text-muted); font-size: 13px; }
 .auth-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -807,177 +774,126 @@ img, svg { display: block; max-width: 100%; }
   color: var(--text);
   box-shadow: var(--shadow-sm);
 }
-.auth-foot {
-  color: var(--text-muted);
-  font-size: 12px;
-  text-align: center;
-  margin: 0;
-}
 
 /* =============================================================
-   Landing
-   Simple split layout: copy on the left, restaurant photo on
-   the right. No mockups, no feature grid, no marketing prose.
+   Split-screen auth landing
+   Left 66% = restaurant image with dark overlay + brand text.
+   Right 34% = clean auth form panel.
 ============================================================= */
-.landing {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg);
-}
-
-/* Navbar */
-.landing-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 28px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-}
-.landing-nav__brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: inherit;
-}
-.landing-nav__name {
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: -0.01em;
-}
-.landing-nav__spacer { flex: 1; }
-.landing-nav__actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Hero — two column on desktop */
-.landing-hero {
+.auth-split {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
-  align-items: center;
-  padding: 48px 28px 64px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  flex: 1;
-}
-.landing-hero__copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-  max-width: 560px;
-}
-.landing-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 999px;
-}
-.landing-pill::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.landing-hero__title {
-  font-size: clamp(34px, 4.6vw, 48px);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.08;
-  margin: 0;
-  color: var(--text);
-  max-width: 18ch;
-}
-.landing-hero__subtitle {
-  font-size: 16.5px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin: 0;
+  grid-template-columns: 2fr 1fr;
+  min-height: 100vh;
 }
 
-/* Bullets */
-.landing-hero__bullets {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-.landing-hero__bullet {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--text);
-}
-.landing-hero__bullet::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--primary);
-  margin-top: 9px;
-  flex-shrink: 0;
-}
-
-/* CTA */
-.landing-hero__cta {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-.landing-hero__caption {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 13px;
-}
-
-/* Image */
-.landing-hero__image {
-  margin: 0;
-  border-radius: 20px;
+/* ---------- Left: image ---------- */
+.auth-image {
+  position: relative;
   overflow: hidden;
-  background: var(--surface-alt);
-  aspect-ratio: 4 / 5;
-  max-height: 600px;
-  width: 100%;
-  box-shadow: 0 1px 2px var(--shadow), 0 18px 40px rgba(31, 41, 51, 0.10);
-  border: 1px solid var(--border);
+  background: #1a120e;   /* fallback if image fails */
 }
-.landing-hero__image img {
+.auth-image__bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
-/* Footer */
-.landing__footer {
-  border-top: 1px solid var(--border);
-  padding: 18px 28px;
+.auth-image__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 14, 11, 0.40) 0%,
+    rgba(20, 14, 11, 0.55) 55%,
+    rgba(20, 14, 11, 0.75) 100%
+  );
+}
+.auth-image__content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 48px 64px;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+.auth-image__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.auth-image__wordmark {
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.95);
+}
+.auth-image__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 580px;
+}
+.auth-image__title {
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  margin: 0 0 18px;
+  color: #ffffff;
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.25);
+}
+.auth-image__subtitle {
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 540px;
+}
+.auth-image__foot {
+  margin-top: auto;
   font-size: 13px;
-  color: var(--text-muted);
-  max-width: 1200px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ---------- Right: auth panel ---------- */
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background: var(--surface);
+  min-height: 100vh;
+}
+.auth-panel__inner {
   width: 100%;
-  margin: 0 auto;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.auth-panel__head { margin-bottom: 4px; }
+.auth-panel__title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  color: var(--text);
+}
+.auth-panel__sub {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+.auth-panel__foot {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  text-align: center;
+  margin: 0;
 }
 
 /* =============================================================
@@ -1237,15 +1153,23 @@ img, svg { display: block; max-width: 100%; }
   .content { padding: 18px; }
   .nav-link--active::before { display: none; }
 
-  /* Landing: stack hero (copy first, image below) */
-  .landing-hero {
+  /* Auth split: stack vertically (image first, form below) */
+  .auth-split {
     grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 28px 24px 40px;
   }
-  .landing-hero__image {
-    aspect-ratio: 16 / 11;
-    max-height: 420px;
+  .auth-image { min-height: auto; }
+  .auth-image__content {
+    min-height: 360px;
+    padding: 36px 32px;
+  }
+  .auth-image__title {
+    font-size: clamp(32px, 6vw, 44px);
+  }
+  .auth-image__subtitle { font-size: 15.5px; }
+  .auth-image__foot { display: none; }
+  .auth-panel {
+    min-height: auto;
+    padding: 40px 32px;
   }
 }
 
@@ -1258,14 +1182,11 @@ img, svg { display: block; max-width: 100%; }
   .row-actions { gap: 4px; }
   .btn--sm { padding: 5px 9px; }
   .input--search { max-width: 100%; }
-  .landing-nav { padding: 14px 18px; }
-  .landing-nav__signin { display: none; }
-  .landing-hero { padding: 20px 18px 32px; gap: 28px; }
-  .landing-hero__subtitle { font-size: 15.5px; }
-  .landing-hero__bullet { font-size: 14.5px; }
-  .landing-hero__image {
-    aspect-ratio: 4 / 3;
-    max-height: 320px;
+  .auth-image__content {
+    min-height: 280px;
+    padding: 28px 22px;
   }
-  .landing__footer { padding: 16px 18px; }
+  .auth-image__subtitle { font-size: 14.5px; }
+  .auth-panel { padding: 28px 22px; }
+  .auth-panel__title { font-size: 22px; }
 }

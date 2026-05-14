@@ -25,9 +25,9 @@ export default function Layout() {
     <div className="layout">
       <aside className={`sidebar ${mobileOpen ? 'sidebar--open' : ''}`}>
         <div className="sidebar__brand">
-          <div className="brand-mark">KO</div>
+          <div className="brand-mark">KM</div>
           <div>
-            <div className="brand-title">KitchenOps</div>
+            <div className="brand-title">Kitchen Manager</div>
             <div className="brand-sub">Operations console</div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function Layout() {
           >
             ☰
           </button>
-          <div className="topbar__title">KitchenOps</div>
+          <div className="topbar__title">Kitchen Manager</div>
           <div className="topbar__spacer" />
         </header>
 
