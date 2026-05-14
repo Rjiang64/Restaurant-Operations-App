@@ -812,9 +812,9 @@ img, svg { display: block; max-width: 100%; }
 }
 .auth-image__wordmark {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 19px;
   letter-spacing: -0.005em;
-  color: #ffffff;
+  color: #ffaa64;
 }
 .auth-image__center {
   flex: 1;
