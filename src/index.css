@@ -100,24 +100,10 @@ img, svg { display: block; max-width: 100%; }
   border-bottom: 1px solid #2C3744;
 }
 
-.brand-mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: #FFF8F1;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  font-size: 14px;
-  box-shadow: 0 4px 10px rgba(139, 30, 30, 0.35);
-}
-.brand-mark--lg {
-  width: 52px;
-  height: 52px;
-  font-size: 18px;
-  border-radius: 12px;
+.logo {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .brand-title {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import Logo from './Logo.jsx'
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: 'D' },
@@ -25,7 +26,7 @@ export default function Layout() {
     <div className="layout">
       <aside className={`sidebar ${mobileOpen ? 'sidebar--open' : ''}`}>
         <div className="sidebar__brand">
-          <div className="brand-mark">KM</div>
+          <Logo size={38} />
           <div>
             <div className="brand-title">Kitchen Manager</div>
             <div className="brand-sub">Operations console</div>

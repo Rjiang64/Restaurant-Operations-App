@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import AuthForm from '../components/AuthForm.jsx'
+import Logo from '../components/Logo.jsx'
 
 // To use your own photo instead: save it as `public/restaurant.jpg`
 // and change the value below to "/restaurant.jpg".
@@ -31,7 +32,7 @@ export default function Landing() {
         <div className="auth-image__overlay" aria-hidden="true" />
         <div className="auth-image__content">
           <div className="auth-image__brand">
-            <div className="brand-mark">KM</div>
+            <Logo size={40} />
             <span className="auth-image__wordmark">Kitchen Manager</span>
           </div>
 
