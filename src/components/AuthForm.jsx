@@ -114,9 +114,6 @@ export default function AuthForm() {
         </button>
       </form>
 
-      <p className="auth-panel__foot">
-        Internal demo app. Use any email and a password of 6+ characters.
-      </p>
     </div>
   )
 }
