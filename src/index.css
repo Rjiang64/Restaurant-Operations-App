@@ -761,6 +761,46 @@ img, svg { display: block; max-width: 100%; }
   box-shadow: var(--shadow-sm);
 }
 
+/* Google OAuth button */
+.btn--google {
+  background: #ffffff;
+  border: 1px solid var(--border-strong);
+  color: #1f2933;
+  font-weight: 600;
+  gap: 10px;
+}
+.btn--google:hover {
+  background: #f7f5f0;
+  border-color: #c9c0b0;
+}
+.btn--google[disabled] {
+  opacity: 0.7;
+}
+.btn--google__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* "or" divider between OAuth and email form */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 /* =============================================================
    Split-screen auth landing
    Left 66% = restaurant image with dark overlay + brand text.
