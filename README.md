@@ -2,7 +2,7 @@
 
 > Restaurant operations, simplified.
 
-A full-stack internal tool for small restaurant managers to track **inventory, daily sales, staff shifts, biweekly timecards, labor reports, and manager tasks** — all in one place.
+A full-stack internal tool for small restaurant managers to track **inventory, daily sales, staff shifts, biweekly timecards, labor reports, and manager tasks**.
 
 **Live demo:** https://restaurant-operations-app.vercel.app
 
@@ -36,42 +36,12 @@ A full-stack internal tool for small restaurant managers to track **inventory, d
 | Frontend | React 18 (Vite) + JavaScript |
 | Routing | React Router 6 |
 | Charts | Recharts |
-| Styling | Hand-written CSS with design tokens (no Tailwind or CSS-in-JS) |
-| Backend | Supabase — Postgres + Auth + auto-generated REST |
-| Security | Postgres Row-Level Security — per-user data isolation enforced at the database |
-| Hosting | Vercel (SPA fallback via `vercel.json`) |
+| Styling | CSS |
+| Backend | Supabase — Postgres + Auth |
+| Security | Postgres Row-Level Security |
+| Hosting | Vercel|
 
 ---
 
-## Running locally
-
-```bash
-npm install
-```
-
-Create a `.env` file in the project root:
-
-```
-VITE_SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
-VITE_SUPABASE_ANON_KEY=YOUR-PUBLIC-ANON-KEY
-```
-
-Run [`supabase/schema.sql`](./supabase/schema.sql) in the Supabase SQL Editor to create the tables + RLS policies. Optional demo data lives in [`supabase/seed.sql`](./supabase/seed.sql).
-
-```bash
-npm run dev
-```
-
-App opens at http://localhost:5173.
-
 ---
 
-## Screenshots
-
-_Add screenshots here once the deployed version is populated with data._
-
----
-
-## More documentation
-
-For a deeper walkthrough of the architecture, database schema, RLS policies, auth flow, and page-by-page implementation, see [`KITCHEN_MANAGER_DOCS.md`](./KITCHEN_MANAGER_DOCS.md).
